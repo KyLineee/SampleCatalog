@@ -14,6 +14,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -35,32 +39,30 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Center
-            ) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceEvenly
-                ) {
-                    ListItem(imageId = R.drawable.ice1, title = "ice 1", descriptionTitle = "ice 1")
-                    ListItem(imageId = R.drawable.ice2, title = "ice 2", descriptionTitle = "ice 2")
-                }
+            val cards = listOf(
+                Pair(R.drawable.ice1, Pair("Заголовок 1", "Описание 1")),
+                Pair(R.drawable.ice2, Pair("Заголовок 2", "Описание 2")),
+                Pair(R.drawable.ice3, Pair("Заголовок 3", "Описание 3")),
+                Pair(R.drawable.ice4, Pair("Заголовок 4", "Описание 4")),
+                Pair(R.drawable.ice5, Pair("Заголовок 5", "Описание 5")),
+                Pair(R.drawable.ice6, Pair("Заголовок 6", "Описание 6")),
+                Pair(R.drawable.ice7, Pair("Заголовок 7", "Описание 7")),
+                Pair(R.drawable.ice8, Pair("Заголовок 8", "Описание 8")),
+                Pair(R.drawable.ice9, Pair("Заголовок 9", "Описание 9")),
+                Pair(R.drawable.ice10, Pair("Заголовок 10", "Описание 10")),
+            )
 
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceEvenly
-                ) {
-                    ListItem(imageId = R.drawable.ice3, title = "ice 3", descriptionTitle = "ice 3")
-                    ListItem(imageId = R.drawable.ice4, title = "ice 4", descriptionTitle = "ice 4")
-                }
-
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceEvenly
-                ) {
-                    ListItem(imageId = R.drawable.ice5, title = "ice 5", descriptionTitle = "ice 5")
-                    ListItem(imageId = R.drawable.ice6, title = "ice 6", descriptionTitle = "ice 6")
+            val rows = cards.chunked(2)
+            LazyColumn(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.fillMaxSize()
+            ){
+                items(rows){ row ->
+                    LazyRow(){
+                        items(row){card ->
+                            ListItem(imageId = card.first, title = card.second.first, descriptionTitle = card.second.second)
+                        }
+                    }
                 }
             }
         }
@@ -70,8 +72,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 private fun ListItem(imageId: Int, title: String, descriptionTitle: String) {
     Card(
-        modifier = Modifier
-            .padding(10.dp),
+        modifier = Modifier.padding(10.dp),
         shape = RoundedCornerShape(15.dp),
         elevation =CardDefaults.cardElevation(5.dp)
     ) {
