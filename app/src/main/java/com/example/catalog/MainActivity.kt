@@ -40,16 +40,16 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val cards = listOf(
-                Pair(R.drawable.ice1, Pair("Заголовок 1", "Описание 1")),
-                Pair(R.drawable.ice2, Pair("Заголовок 2", "Описание 2")),
-                Pair(R.drawable.ice3, Pair("Заголовок 3", "Описание 3")),
-                Pair(R.drawable.ice4, Pair("Заголовок 4", "Описание 4")),
-                Pair(R.drawable.ice5, Pair("Заголовок 5", "Описание 5")),
-                Pair(R.drawable.ice6, Pair("Заголовок 6", "Описание 6")),
-                Pair(R.drawable.ice7, Pair("Заголовок 7", "Описание 7")),
-                Pair(R.drawable.ice8, Pair("Заголовок 8", "Описание 8")),
-                Pair(R.drawable.ice9, Pair("Заголовок 9", "Описание 9")),
-                Pair(R.drawable.ice10, Pair("Заголовок 10", "Описание 10")),
+                ItemColumnModel(R.drawable.ice1, "Заголовок 1", "Описание 1"),
+                ItemColumnModel(R.drawable.ice2, "Заголовок 2", "Описание 2"),
+                ItemColumnModel(R.drawable.ice3, "Заголовок 3", "Описание 3"),
+                ItemColumnModel(R.drawable.ice4, "Заголовок 4", "Описание 4"),
+                ItemColumnModel(R.drawable.ice5, "Заголовок 5", "Описание 5"),
+                ItemColumnModel(R.drawable.ice6, "Заголовок 6", "Описание 6"),
+                ItemColumnModel(R.drawable.ice7, "Заголовок 7", "Описание 7"),
+                ItemColumnModel(R.drawable.ice8, "Заголовок 8", "Описание 8"),
+                ItemColumnModel(R.drawable.ice9, "Заголовок 9", "Описание 9"),
+                ItemColumnModel(R.drawable.ice10, "Заголовок 10", "Описание 10"),
             )
 
             val rows = cards.chunked(2)
@@ -60,38 +60,10 @@ class MainActivity : ComponentActivity() {
                 items(rows){ row ->
                     LazyRow(){
                         items(row){card ->
-                            ListItem(imageId = card.first, title = card.second.first, descriptionTitle = card.second.second)
+                            ItemColumn(card)
                         }
                     }
                 }
-            }
-        }
-    }
-}
-
-@Composable
-private fun ListItem(imageId: Int, title: String, descriptionTitle: String) {
-    Card(
-        modifier = Modifier.padding(10.dp),
-        shape = RoundedCornerShape(15.dp),
-        elevation =CardDefaults.cardElevation(5.dp)
-    ) {
-        Box(
-            modifier = Modifier.background(Color.LightGray)
-        ){
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Image(
-                    painter = painterResource(id = imageId),
-                    contentDescription = "ice",
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .padding(5.dp)
-                        .size(150.dp)
-                )
-                Text(text = title)
-                Text(text = descriptionTitle)
             }
         }
     }
